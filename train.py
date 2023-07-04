@@ -1,4 +1,4 @@
-import torch
+import os, torch
 from torch import optim
 import torch.nn.functional as F
 
@@ -50,6 +50,7 @@ class TrainerDeepSVDD:
         net = network(self.args.latent_dim).to(self.device)
         state_dict = model.state_dict()
         net.load_state_dict(state_dict, strict=False)
+        os.makedirs('weights', exist_ok=True)
         torch.save({'center': c.cpu().data.numpy().tolist(),
                     'net_dict': net.state_dict()}, 'weights/pretrained_parameters.pth')
     
