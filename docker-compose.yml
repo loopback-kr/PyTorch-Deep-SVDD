@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  debug:
+    build: $PWD
+    tty: true
+    stdin_open: true
+    shm_size: 80g
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [ gpu ]
+              count: all
+    volumes:
+      - $PWD:/workspace
